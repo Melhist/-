@@ -137,6 +137,7 @@ ul { list-style-position: inside; }
   justify-content: space-between;
   align-items: center;
   gap: 20px;
+  position: relative;
 }
 .header-actions {
   display: flex;
@@ -156,6 +157,8 @@ ul { list-style-position: inside; }
   color: var(--color-primary);
   font-size: 15px;
   transition: color 0.3s;
+  font-weight: 600;
+  letter-spacing: 0.5px;
 }
 .nav a:hover {
   color: var(--color-accent);
@@ -167,23 +170,35 @@ ul { list-style-position: inside; }
   cursor: pointer;
   flex-direction: column;
   gap: 4px;
+  z-index: 101;
 }
 .mobile-menu-toggle span {
   width: 24px;
   height: 3px;
   background: var(--color-primary);
   display: block;
+  transition: all 0.3s;
+}
+.mobile-menu-toggle.active span:nth-child(1) {
+  transform: rotate(45deg) translate(6px, 6px);
+}
+.mobile-menu-toggle.active span:nth-child(2) {
+  opacity: 0;
+}
+.mobile-menu-toggle.active span:nth-child(3) {
+  transform: rotate(-45deg) translate(6px, -6px);
 }
 
 /* === Hero === */
 .hero {
   position: relative;
-  background: url('https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=1920&q=80') center center / cover no-repeat;
+  background: url('https://images.unsplash.com/photo-1615529182904-14819c35db37?w=1920&q=80') center center / cover no-repeat;
   padding: 150px 0;
   text-align: center;
   min-height: 600px;
   display: flex;
   align-items: center;
+  background-attachment: fixed;
 }
 .hero::before {
   content: '';
@@ -616,75 +631,295 @@ ul { list-style-position: inside; }
   .container { padding: 0 15px; }
   .section { padding: 50px 0; }
   
+  /* Hero */
   .hero { 
-    padding: 100px 0; 
-    min-height: 500px;
+    padding: 120px 0; 
+    min-height: 450px;
+    background-attachment: scroll;
+    background-position: center center;
   }
-  .hero h1 { font-size: 36px; }
-  .hero p { font-size: 16px; }
+  .hero h1 { 
+    font-size: 32px;
+    line-height: 1.2;
+    margin-bottom: 15px;
+  }
+  .hero p { 
+    font-size: 16px;
+    margin-bottom: 30px;
+  }
   .hero-cta { 
     flex-direction: column; 
     align-items: stretch;
-    gap: 10px;
+    gap: 15px;
+    max-width: 300px;
+    margin: 0 auto;
   }
   .hero-cta .btn { 
     width: 100%; 
+    padding: 18px 20px;
+    font-size: 16px;
   }
   
-  .header-inner { padding: 0; }
-  .header-actions { display: none; }
-  .mobile-menu-toggle { display: flex; }
+  /* Header */
+  .header-inner { 
+    padding: 0;
+    position: relative;
+  }
+  .header-actions { 
+    display: none;
+    position: absolute;
+    top: 50%;
+    right: 20px;
+    transform: translateY(-50%);
+  }
+  .mobile-menu-toggle { 
+    display: flex;
+    z-index: 101;
+  }
   .nav {
     position: fixed;
-    top: 61px;
+    top: 0;
     left: 0;
     right: 0;
-    background: #fff;
+    bottom: 0;
+    background: rgba(0,0,0,0.95);
     flex-direction: column;
+    justify-content: center;
     padding: 20px;
-    gap: 15px;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-    transform: translateY(-100%);
+    gap: 25px;
+    transform: translateX(-100%);
     opacity: 0;
     pointer-events: none;
-    transition: all 0.3s;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    z-index: 100;
   }
   .nav.mobile-open {
-    transform: translateY(0);
+    transform: translateX(0);
     opacity: 1;
     pointer-events: all;
   }
+  .nav a {
+    color: #fff;
+    font-size: 22px;
+    text-align: center;
+    padding: 10px;
+  }
+  .nav a:hover {
+    color: var(--color-accent);
+  }
   
-  .section-title { font-size: 32px; }
+  /* Typography */
+  .section-title { 
+    font-size: 32px;
+    line-height: 1.2;
+  }
   .section-subtitle { font-size: 16px; }
-  h3 { font-size: 18px; }
+  h3 { font-size: 20px; }
   
-  .services-grid { grid-template-columns: 1fr; gap: 30px; }
-  .service-card { padding: 30px 25px; }
+  /* Services */
+  .services-grid { 
+    grid-template-columns: 1fr; 
+    gap: 30px;
+    max-width: 500px;
+    margin: 0 auto;
+  }
+  .service-card { 
+    padding: 35px 30px;
+    border-width: 2px;
+  }
   
-  .benefit-card { padding: 30px; }
-  .benefit-number { font-size: 60px; }
+  /* Benefits */
+  .benefits-grid { 
+    grid-template-columns: 1fr; 
+    gap: 25px;
+    max-width: 500px;
+    margin: 0 auto 40px;
+  }
+  .benefit-card { 
+    padding: 35px 30px;
+    border-left-width: 5px;
+  }
+  .benefit-number { 
+    font-size: 70px;
+    top: 25px;
+    right: 25px;
+  }
   
-  .testimonials-grid { grid-template-columns: 1fr; gap: 20px; }
-  .testimonial-card { padding: 25px; }
+  /* Testimonials */
+  .testimonials-section {
+    padding-top: 40px;
+  }
+  .testimonials-title { 
+    font-size: 28px;
+    margin-bottom: 30px;
+  }
+  .testimonials-grid { 
+    grid-template-columns: 1fr; 
+    gap: 25px;
+    max-width: 500px;
+    margin: 0 auto;
+  }
+  .testimonial-card { 
+    padding: 30px;
+    border-width: 2px;
+  }
   
-  .contact-value.phone { font-size: 24px; }
-  .contact-form { padding: 30px; }
+  /* Contacts */
+  .contacts-wrapper { 
+    grid-template-columns: 1fr; 
+    gap: 40px;
+    max-width: 500px;
+    margin: 0 auto;
+  }
+  .contact-item {
+    padding-bottom: 20px;
+  }
+  .contact-label {
+    font-size: 13px;
+    margin-bottom: 8px;
+  }
+  .contact-value {
+    font-size: 18px;
+  }
+  .contact-value.phone { 
+    font-size: 26px;
+    font-weight: 700;
+  }
+  .contact-form { 
+    padding: 35px;
+    border-width: 2px;
+  }
+  .contact-form h3 {
+    font-size: 22px;
+    text-align: center;
+  }
   
+  /* Footer */
   .footer-inner { 
     grid-template-columns: 1fr; 
     text-align: center; 
-    gap: 30px;
+    gap: 35px;
+    padding-bottom: 30px;
   }
-  .social-line { justify-content: center; }
+  .foot-brand .logo {
+    font-size: 22px;
+  }
+  .foot-contacts a {
+    font-size: 17px;
+  }
+  .social-line { 
+    justify-content: center;
+    flex-wrap: wrap;
+  }
   
-  .map-container { height: 350px; }
+  /* Map */
+  .map-container { 
+    height: 300px;
+    border: 2px solid var(--color-border);
+  }
+  
+  /* FAQ */
+  .faq-grid {
+    max-width: 500px;
+    margin: 0 auto;
+  }
+  .faq-item {
+    padding: 25px;
+    border-width: 2px;
+  }
+  .faq-item summary {
+    font-size: 18px;
+  }
 }
 
 @media (max-width: 480px) {
-  .hero h1 { font-size: 28px; }
-  .hero p { font-size: 15px; }
-  .section-title { font-size: 28px; }
-  .btn { padding: 14px 30px; font-size: 14px; }
-  .contact-value.phone { font-size: 22px; }
+  /* Hero */
+  .hero { 
+    padding: 100px 0; 
+    min-height: 400px;
+    background-position: center center;
+  }
+  .hero h1 { 
+    font-size: 26px;
+    line-height: 1.25;
+  }
+  .hero p { 
+    font-size: 15px;
+    margin-bottom: 25px;
+  }
+  .hero-cta { 
+    max-width: 100%;
+    gap: 12px;
+  }
+  .hero-cta .btn { 
+    padding: 16px 15px;
+    font-size: 15px;
+  }
+  
+  /* Base */
+  .container { 
+    padding: 0 12px; 
+  }
+  .section { 
+    padding: 40px 0; 
+  }
+  .section-title { 
+    font-size: 26px;
+    margin-bottom: 20px;
+  }
+  
+  /* Buttons */
+  .btn { 
+    padding: 14px 25px; 
+    font-size: 14px; 
+  }
+  
+  /* Typography */
+  h1 { font-size: 32px; }
+  h2 { font-size: 26px; }
+  h3 { font-size: 18px; }
+  
+  /* Cards */
+  .service-card { 
+    padding: 25px 20px;
+  }
+  .benefit-card { 
+    padding: 25px 20px;
+  }
+  .benefit-number { 
+    font-size: 50px;
+    top: 15px;
+    right: 15px;
+  }
+  
+  /* Contacts */
+  .contact-value.phone { 
+    font-size: 22px;
+  }
+  .contact-form { 
+    padding: 25px;
+  }
+  
+  /* Testimonials */
+  .testimonial-card { 
+    padding: 20px;
+  }
+  
+  /* FAQ */
+  .faq-item {
+    padding: 20px;
+  }
+  
+  /* Map */
+  .map-container { 
+    height: 250px;
+  }
+  
+  /* Footer */
+  .foot-brand .logo {
+    font-size: 20px;
+  }
+  .foot-contacts a {
+    font-size: 15px;
+  }
 }
