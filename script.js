@@ -248,7 +248,7 @@
     );
     
     // Open mailto
-    window.location.href = `mailto:moscowrestorer@gmail.com?subject=${subject}&body=${body}`;
+    window.location.href = `mailto:moscowrestorer@mail.ru?subject=${subject}&body=${body}`;
     
     // Show confirmation
     setTimeout(() => {
